@@ -1,10 +1,10 @@
-import React from 'react';
-import Button from './lib';
+import { Button } from './lib';
 
 function App() {
   return (
     <div>
       <Button>Hello</Button>
+      <Button color="secondary">Hello</Button>
     </div>
   );
 }

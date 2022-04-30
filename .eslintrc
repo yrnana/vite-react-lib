@@ -1,0 +1,89 @@
+{
+  "root": true,
+  "ignorePatterns": ["node_modules", "dist"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.js"],
+      "parserOptions": {
+        "ecmaVersion": "latest"
+      },
+      "excludedFiles": ["src/**/*"],
+      "env": {
+        "node": true,
+        "es2021": true
+      },
+      "plugins": ["simple-import-sort"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended",
+        "prettier"
+      ],
+      "rules": {
+        "import/no-unresolved": "off",
+        "sort-imports": "off",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error"
+      }
+    },
+    {
+      "files": ["src/**/*.ts?(x)"],
+      "parserOptions": {
+        "ecmaVersion": "latest"
+      },
+      "settings": {
+        "react": {
+          "version": "detect"
+        }
+      },
+      "env": {
+        "browser": true,
+        "es2021": true
+      },
+      "plugins": ["simple-import-sort"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:import/recommended",
+        "plugin:jsx-a11y/recommended",
+        "prettier"
+      ],
+      "rules": {
+        "import/no-unresolved": "off",
+        "sort-imports": "off",
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              ["^\\u0000"],
+              ["^react$", "^react-dom"],
+              ["^@?\\w"],
+              ["^~"],
+              ["^."],
+              [".scss", ".svg", ".png"]
+            ]
+          }
+        ],
+        "simple-import-sort/exports": "error",
+        "@typescript-eslint/no-duplicate-imports": [
+          "error",
+          { "includeExports": true }
+        ],
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "args": "none",
+            "ignoreRestSiblings": true
+          }
+        ],
+        "react/prop-types": "off",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
+      }
+    }
+  ]
+}

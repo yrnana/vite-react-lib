@@ -1,8 +1,9 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
-import pkg from './package.json';
 import dts from 'vite-plugin-dts';
+
+import pkg from './package.json';
 
 const external = [
   ...Object.keys(pkg.dependencies || {}),
@@ -29,9 +30,10 @@ export default defineConfig({
     minify: false,
     lib: {
       name: pkg.name,
-      entry: path.resolve(__dirname, `src/lib/index.tsx`),
+      entry: path.resolve(__dirname, `src/lib/index.ts`),
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format) =>
+        format === 'es' ? `index.esm.js` : `index.${format}.js`,
     },
     rollupOptions: {
       external,
@@ -40,5 +42,11 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     open: true,
+  },
+  css: {
+    devSourcemap: true,
+  },
+  optimizeDeps: {
+    include: ['react/jsx-runtime', '@emotion/react/jsx-runtime'],
   },
 });
