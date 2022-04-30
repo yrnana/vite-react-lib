@@ -1,26 +1,40 @@
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
-import packageData from './package.json';
+import pkg from './package.json';
+import dts from 'vite-plugin-dts';
+
+const external = [
+  ...Object.keys(pkg.dependencies || {}),
+  ...Object.keys(pkg.peerDependencies || {}),
+  /\/jsx-runtime/,
+];
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react({
-      jsxRuntime: 'classic',
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion'],
+      },
+    }),
+    dts({
+      include: ['src/lib'],
     }),
   ],
   build: {
+    target: 'esnext',
     sourcemap: true,
     minify: false,
     lib: {
-      name: packageData.name,
+      name: pkg.name,
       entry: path.resolve(__dirname, `src/lib/index.tsx`),
       formats: ['es', 'cjs'],
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external,
     },
   },
   server: {
