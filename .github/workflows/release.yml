@@ -34,5 +34,6 @@ jobs:
           publish: yarn release
         env:
           HOME: ${{ github.workspace }}
-          GITHUB_TOKEN: ${{ secrets.CHANGESET_PAT_TOKEN }}
-          GITHUB_PACKAGES_TOKEN: ${{ secrets.CHANGESET_PACKAGE_PUBLISH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
