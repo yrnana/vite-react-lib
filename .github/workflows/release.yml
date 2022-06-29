@@ -25,18 +25,19 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: Create .npmrc
+      - name: Creating .npmrc
         run: |
-          echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" >> "$HOME/.npmrc"
+          cat << EOF > "$HOME/.npmrc"
+            //npm.pkg.github.com/:_authToken=$GITHUB_TOKEN
+          EOF
         env:
-          HOME: ${{ github.workspace }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
+          version: yarn version
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

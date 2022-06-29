@@ -14,12 +14,7 @@ const external = [
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react({
-      jsxImportSource: '@emotion/react',
-      babel: {
-        plugins: ['@emotion'],
-      },
-    }),
+    react(),
     dts({
       include: ['src/lib'],
     }),
@@ -47,6 +42,6 @@ export default defineConfig({
     devSourcemap: true,
   },
   optimizeDeps: {
-    include: ['react/jsx-runtime', '@emotion/react/jsx-runtime'],
+    include: ['react/jsx-runtime'],
   },
 });
